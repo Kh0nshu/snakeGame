@@ -67,13 +67,13 @@ function advanceSnake(snake) {
     @params: snake
     Description:
     This function creates a new head variable with
-    an x function shifted dx to the x value of the
-    head of the snake, then sets it as the first
-    value of the snake. Then removes the first
-    variable, thus making the snake move right
-    or left.
+    an x and y function shifted dx and dy to the 
+    x and y value of the head of the snake, then 
+    sets it as the first value of the snake. Then 
+    removes the first variable, thus making the 
+    snake move right or left.
     */
-    const head = {x: snake[0].x + dx, y: snake[0].y};
+    const head = {x: snake[0].x + dx, y: snake[0].y + dy};
     snake.unshift(head);
     snake.pop();
 }
