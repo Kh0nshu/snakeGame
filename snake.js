@@ -8,6 +8,7 @@ function gameLogic(){
     and sets its size to 300 x 300. Then it initializes
     the starting postion of the snake.
     */
+
     // Get the canvas element
     const canvas = document.getElementById("gameCanvas");
 
@@ -16,7 +17,7 @@ function gameLogic(){
         
     // Set fill color to white and draw the rectangle
     ctx.fillStyle = 'white';
-    ctx.fillRect = (0, 0, 300, 300);
+    ctx.fillRect(0, 0, 300, 300);
 
     // Set border color to black and draw the boarder
     ctx.strokeStyle = "black";
@@ -24,16 +25,20 @@ function gameLogic(){
 
     // Create snake as an array of coordinates
     let snake = [{x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150},  {x: 110, y: 150}];
+
+    // Calling the drawSnake function to draw the snake
+    drawSnake(ctx, snake);
 }
 
-function drawSnakePart(snakePart) {
+function drawSnakePart(ctx, snakePart) {
     /*
-    @params: snakePart
+    @params: ctx, snakePart
     Description: 
     This function takes in each snakePart and sets
     its color to light green with a dark green 
     stroke to it.
     */
+
     // Set the color of each snakePart
     ctx.fillStyle = 'lightgreen';
 
@@ -45,6 +50,16 @@ function drawSnakePart(snakePart) {
 
     // Set the stroke around the snakePart
     ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
+}
+
+function drawSnake(ctx, snake) {
+    /*
+    @params: ctx, snake
+    Description: 
+    This function loops through each part of the snake
+    and callsed drawSnakePart() on it.
+    */
+    snake.forEach(part => drawSnakePart(ctx, part));
 }
 
 gameLogic();
