@@ -62,4 +62,20 @@ function drawSnake(ctx, snake) {
     snake.forEach(part => drawSnakePart(ctx, part));
 }
 
+function advanceSnake(snake) {
+    /*
+    @params: snake
+    Description:
+    This function creates a new head variable with
+    an x function shifted dx to the x value of the
+    head of the snake, then sets it as the first
+    value of the snake. Then removes the first
+    variable, thus making the snake move right
+    or left.
+    */
+    const head = {x: snake[0].x + dx, y: snake[0].y};
+    snake.unshift(head);
+    snake.pop();
+}
+
 gameLogic();
