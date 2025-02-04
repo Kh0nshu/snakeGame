@@ -39,6 +39,12 @@ function drawSnakePart(snakePart) {
 
     // Set the boarder of each snakePart
     ctx.strokeStyle = 'darkgreen';
+
+    // Draw the 10 x 10 snakePart
+    ctx.fillRect(snakePart.x, snakePart.y, 10, 10);
+
+    // Set the stroke around the snakePart
+    ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
 }
 
 gameLogic();
