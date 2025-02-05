@@ -96,4 +96,16 @@ function clearCanvas(ctx) {
     ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 }
 
+function movement() {
+    /*
+    Description:
+    This function clears the canvas, then
+    moves the snake, then draws the snake.
+    We will use this to simulate movment.
+    */
+    clearCanvas();
+    advanceSnake();
+    drawSnake();
+}
+
 gameLogic();
