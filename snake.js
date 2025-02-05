@@ -18,11 +18,14 @@ function gameLogic(){
     //creat the canvas
     clearCanvas(ctx);
 
-    // Create snake as an array of coordinates
+    // Declaration of variables
     let snake = [{x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150},  {x: 110, y: 150}];
-    let state = {dx: 10, dy: 0};
+    let state = {dx: 0, dy: 0};
+    let score = {num: 0};
     let food = createFood(snake);
-    setTimeout(() => movement(ctx, snake, state, food), 100);
+
+    // Game movementLoop and key mover
+    setTimeout(() => movement(ctx, snake, state, food, score), 100);
     document.addEventListener("keydown", (event) => direction(event, state));
 }
 
@@ -62,7 +65,7 @@ function drawSnake(ctx, snake) {
     snake.forEach(part => drawSnakePart(ctx, part));
 }
 
-function advanceSnake(snake, state, food) {
+function advanceSnake(snake, state, food, score) {
    /*
     @params:
       - snake: The array representing the snake's body
@@ -73,12 +76,15 @@ function advanceSnake(snake, state, food) {
     at a new position and removing the last part to 
     simulate forward movement. If the head is on the
     same location of the food dont pop the array,
-    making it grow.
+    making it grow. And it keeps score adding 10 for 
+    each food you eat.
     */
     const head = {x: snake[0].x + state.dx, y: snake[0].y + state.dy};
     snake.unshift(head);
     if(head.x === food.x && head.y === food.y){
         food = createFood(snake);
+        score.num += 10;
+        document.getElementById("score").innerHTML = score.num;
     } else {
         snake.pop();
     }
@@ -102,7 +108,7 @@ function clearCanvas(ctx) {
     ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 }
 
-function movement(ctx, snake, state, food) {
+function movement(ctx, snake, state, food, score) {
     /*
     @params:
         - ctx: to draw the canvas
@@ -115,9 +121,9 @@ function movement(ctx, snake, state, food) {
     */
     clearCanvas(ctx);
     drawFood(ctx, food);
-    food = advanceSnake(snake, state, food);
+    food = advanceSnake(snake, state, food, score);
     drawSnake(ctx, snake);
-    setTimeout(() => movement(ctx, snake, state, food), 100);
+    setTimeout(() => movement(ctx, snake, state, food, score), 100);
 }
 
 function direction(event, state) {
