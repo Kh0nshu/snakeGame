@@ -160,4 +160,29 @@ function randomTen(min, max) {
     return Math.round((Math.random() * (max-min) + min) / 10) * 10; return Math.round()
 }
 
+function createFood(snake) {
+    /*
+    @params:
+        - snake: the array of the snake postion
+    Description:
+    This function creates a random loaction for
+    the food within the canvas. However, it also
+    loops through the snake array to makes sure
+    that the food does not spawm on the snake.
+    If the random variable is on the snake,
+    then generate new food.
+    */
+    let food = {
+        x: randomTen(0, 290),
+        y: randomTen(0,290)
+    };
+
+    snake.forEach(part => {
+        if(part.x === food.x && part.y === food.y) {
+            createFood(snake);
+        }
+    })
+    return food;
+}
+
 gameLogic();
