@@ -14,14 +14,9 @@ function gameLogic(){
 
     // Get the 2D context
     const ctx = canvas.getContext("2d");
-        
-    // Set fill color to white and draw the rectangle
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, 300, 300);
-
-    // Set border color to black and draw the boarder
-    ctx.strokeStyle = "black";
-    ctx.strokeRect(0, 0, 300, 300);
+    
+    //creat the canvas
+    clearCanvas(ctx);
 
     // Create snake as an array of coordinates
     let snake = [{x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150},  {x: 110, y: 150}];
@@ -86,7 +81,7 @@ function advanceSnake(snake, dx, dy) {
     snake.pop();
 }
 
-function clearCanvas() {
+function clearCanvas(ctx) {
     /*
     Description:
     This function clears the canvas, used to
