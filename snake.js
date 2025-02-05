@@ -27,12 +27,18 @@ function gameLogic(){
     let snake = [{x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150},  {x: 110, y: 150}];
 
     // Calling the drawSnake function to draw the snake
+    advanceSnake(snake, 10, 0);
+    advanceSnake(snake, 0, -10);
+
+
     drawSnake(ctx, snake);
 }
 
 function drawSnakePart(ctx, snakePart) {
     /*
-    @params: ctx, snakePart
+    @params: 
+        - ctx: to be able to draw in 2d 
+        - snakePart: the square parts of the snake
     Description: 
     This function takes in each snakePart and sets
     its color to light green with a dark green 
@@ -54,7 +60,9 @@ function drawSnakePart(ctx, snakePart) {
 
 function drawSnake(ctx, snake) {
     /*
-    @params: ctx, snake
+    @params: 
+        - ctx: to be able to draw in 2d 
+        - snake: the snake array
     Description: 
     This function loops through each part of the snake
     and callsed drawSnakePart() on it.
@@ -62,20 +70,35 @@ function drawSnake(ctx, snake) {
     snake.forEach(part => drawSnakePart(ctx, part));
 }
 
-function advanceSnake(snake) {
-    /*
-    @params: snake
+function advanceSnake(snake, dx, dy) {
+   /*
+    @params:
+      - snake: The array representing the snake's body
+      - dx: Change in x-direction (horizontal movement)
+      - dy: Change in y-direction (vertical movement)
     Description:
-    This function creates a new head variable with
-    an x and y function shifted dx and dy to the 
-    x and y value of the head of the snake, then 
-    sets it as the first value of the snake. Then 
-    removes the first variable, thus making the 
-    snake move right or left.
+    This function moves the snake by creating a new head 
+    at a new position and removing the last part to 
+    simulate forward movement.
     */
     const head = {x: snake[0].x + dx, y: snake[0].y + dy};
     snake.unshift(head);
     snake.pop();
+}
+
+function clearCanvas() {
+    /*
+    Description:
+    This function clears the canvas, used to
+    refresh whenever we are going to move the
+    snake.
+    */
+    // Set fill color to white and stroke to black
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "black";
+    // fill the rectangule with the colore and stroke around it
+    ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+    ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 }
 
 gameLogic();
