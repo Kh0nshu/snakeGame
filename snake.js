@@ -148,4 +148,16 @@ function direction(event, state) {
       }
 }
 
+function randomTen(min, max) {
+    /*
+    @params:
+        - min: minimum
+        - max: maximum
+    Description:
+    This function generates a random number in
+    the grid in mulitples of 10.
+    */
+    return Math.round((Math.random() * (max-min) + min) / 10) * 10; return Math.round()
+}
+
 gameLogic();
