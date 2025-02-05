@@ -19,7 +19,7 @@ function gameLogic(){
     clearCanvas(ctx);
 
     // Declaration of variables
-    let snake = [{x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150},  {x: 110, y: 150}];
+    let snake = [{x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150}];
     let state = {dx: 0, dy: 0};
     let score = {num: 0};
     let food = createFood(snake);
@@ -27,6 +27,7 @@ function gameLogic(){
     // Game movementLoop and key mover
     setTimeout(() => movement(ctx, snake, state, food, score), 100);
     document.addEventListener("keydown", (event) => direction(event, state));
+   
 }
 
 function drawSnakePart(ctx, snakePart) {
@@ -123,6 +124,9 @@ function movement(ctx, snake, state, food, score) {
     drawFood(ctx, food);
     food = advanceSnake(snake, state, food, score);
     drawSnake(ctx, snake);
+    if(didGameEnd(snake)) {
+        return;
+    }
     setTimeout(() => movement(ctx, snake, state, food, score), 100);
 }
 
