@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game ;)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
-<body>
-    <h1 style="text-align: center;">Welcome to my Snake Game!</h1>
-
-    <canvas id="gameCanvas" width="300" height="300"></canvas>
+<body style="text-align: center; font-family: 'Permanent Marker'">
+    <h1 >Welcome to my Snake Game!</h1>
+    <p>Github Repo <a href="https://github.com/Kh0nshu/snakeGame">HERE</a></p>
+    <div id = "score" style="text-align: center; font-size: 30px; padding-bottom: 20px;">0</div>
+    <div style="display: flex; justify-content: center;">
+        <canvas id="gameCanvas" width="300" height="300" style="justify-content: center;"></canvas>
+    </div>
     <script src="snake.js"></script>
 </body>
 </html>
