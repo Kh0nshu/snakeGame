@@ -65,8 +65,7 @@ function advanceSnake(snake, state) {
    /*
     @params:
       - snake: The array representing the snake's body
-      - dx: Change in x-direction (horizontal movement)
-      - dy: Change in y-direction (vertical movement)
+      - state: the current direction of the snake
     Description:
     This function moves the snake by creating a new head 
     at a new position and removing the last part to 
@@ -94,6 +93,10 @@ function clearCanvas(ctx) {
 
 function movement(ctx, snake, state) {
     /*
+    @params:
+        - ctx: to draw the canvas
+        - snake: the array of the snake position
+        - state: the current direction of the snake
     Description:
     This function clears the canvas, then
     moves the snake, then draws the snake.
@@ -106,6 +109,17 @@ function movement(ctx, snake, state) {
 }
 
 function direction(event, state) {
+    /*
+    @params:
+        - event: the key being pressed
+        - state: current direction of the snake
+    Description:
+    This function takes in the key pressed and 
+    the current direction of the snake and changes
+    the direction based on the key pressed. It also
+    checks if the key pressed is the opposite direction
+    to ensure that the snake doesnt move over itself.
+    */
     const LEFT_KEY = 37;  
     const RIGHT_KEY = 39;  
     const UP_KEY = 38;  
