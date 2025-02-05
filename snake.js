@@ -209,7 +209,7 @@ function drawFood(ctx, food) {
         - ctx: to draw the food
         - food: the food location
     Description:
-    This functino takes in the food
+    This function takes in the food
     location and gives it a shape and 
     color to see.
     */
@@ -217,6 +217,28 @@ function drawFood(ctx, food) {
     ctx.strokeStyle = 'darkered';
     ctx.fillRect(food.x, food.y, 10, 10);
     ctx.strokeRect(food.x, food.y, 10, 10);
+}
+
+function didGameEnd(snake) {
+    /*
+    @params:
+        - snake: the array of the possition of snake
+    Description:
+    This function checks if the snake hit itself or 
+    any of the borders, if it did return true
+    */
+    for(let i = 4; i < snake.length; i++) {
+        const didCollide = (snake[i].x === snake[0].x && snake[i].y === snake[0].y);
+        if(didCollide) {
+            return true;
+        }
+    }
+     const hitLeftWall = snake[0].x < 0;  
+     const hitRightWall = snake[0].x > 300 - 10;  
+     const hitToptWall = snake[0].y < 0;  
+     const hitBottomWall = snake[0].y > 300 - 10;
+
+     return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall;
 }
 
 gameLogic();
