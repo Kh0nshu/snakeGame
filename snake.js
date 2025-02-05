@@ -21,12 +21,8 @@ function gameLogic(){
     // Create snake as an array of coordinates
     let snake = [{x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150},  {x: 110, y: 150}];
 
-    // Calling the drawSnake function to draw the snake
-    advanceSnake(snake, 10, 0);
-    advanceSnake(snake, 0, -10);
-
-
-    drawSnake(ctx, snake);
+    setTimeout(() => movement(ctx, snake, 10, 0), 100);
+    drawSnake(ctx);
 }
 
 function drawSnakePart(ctx, snakePart) {
@@ -96,16 +92,17 @@ function clearCanvas(ctx) {
     ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 }
 
-function movement() {
+function movement(ctx, snake, dx, dy) {
     /*
     Description:
     This function clears the canvas, then
     moves the snake, then draws the snake.
     We will use this to simulate movment.
     */
-    clearCanvas();
-    advanceSnake();
-    drawSnake();
+    clearCanvas(ctx);
+    advanceSnake(snake, dx, dy);
+    drawSnake(ctx, snake);
+    setTimeout(() => movement(ctx, snake, dx, dy), 100);
 }
 
 gameLogic();
