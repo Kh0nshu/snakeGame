@@ -185,4 +185,20 @@ function createFood(snake) {
     return food;
 }
 
+function drawFood(ctx, food) {
+    /*
+    @params:
+        - ctx: to draw the food
+        - food: the food location
+    Description:
+    This functino takes in the food
+    location and gives it a shape and 
+    color to see.
+    */
+    ctx.fillStyle = 'red';
+    ctx.strokeStyle = 'darkered';
+    ctx.fillRect(food.x, food.y, 10, 10);
+    ctx.strokeRect(food.x, food.y, 10, 10);
+}
+
 gameLogic();
