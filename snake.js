@@ -23,10 +23,14 @@ function gameLogic(){
     let state = {dx: 0, dy: 0};
     let score = {num: 0};
     let food = createFood(snake);
+    const backgroundMusic = document.getElementById("backgroundMusic");
+    const eatSound = document.getElementById("eatSound");
+    backgroundMusic.volume = 0.3;
+    backgroundMusic.pause();
 
     // Game movementLoop and key mover
-    setTimeout(() => movement(ctx, snake, state, food, score), 100);
-    document.addEventListener("keydown", (event) => direction(event, state));
+    setTimeout(() => movement(ctx, snake, state, food, score, backgroundMusic), 100);
+    document.addEventListener("keydown", (event) => direction(event, state, backgroundMusic));
    
 }
 
@@ -109,7 +113,7 @@ function clearCanvas(ctx) {
     ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 }
 
-function movement(ctx, snake, state, food, score) {
+function movement(ctx, snake, state, food, score, backgroundMusic) {
     /*
     @params:
         - ctx: to draw the canvas
@@ -125,12 +129,13 @@ function movement(ctx, snake, state, food, score) {
     food = advanceSnake(snake, state, food, score);
     drawSnake(ctx, snake);
     if(didGameEnd(snake)) {
+        backgroundMusic.pause();
         return;
     }
-    setTimeout(() => movement(ctx, snake, state, food, score), 100);
+    setTimeout(() => movement(ctx, snake, state, food, score, backgroundMusic), 100);
 }
 
-function direction(event, state) {
+function direction(event, state, backgroundMusic) {
     /*
     @params:
         - event: the key being pressed
@@ -147,6 +152,10 @@ function direction(event, state) {
     const UP_KEY = 38;  
     const DOWN_KEY = 40;
     const keyPressed = event.keyCode;  
+    if(state.dx === 0 && state.dy ===0){
+        backgroundMusic.play();
+    }
+    
     const goingUp = state.dy === -10;  
     const goingDown = state.dy === 10;  
     const goingRight = state.dx === 10;  
