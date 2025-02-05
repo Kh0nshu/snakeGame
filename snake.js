@@ -25,11 +25,11 @@ function gameLogic(){
     let food = createFood(snake);
     const backgroundMusic = document.getElementById("backgroundMusic");
     const eatSound = document.getElementById("eatSound");
-    backgroundMusic.volume = 0.3;
+    backgroundMusic.volume = 0.2;
     backgroundMusic.pause();
 
     // Game movementLoop and key mover
-    setTimeout(() => movement(ctx, snake, state, food, score, backgroundMusic), 100);
+    setTimeout(() => movement(ctx, snake, state, food, score, backgroundMusic, eatSound), 100);
     document.addEventListener("keydown", (event) => direction(event, state, backgroundMusic));
    
 }
@@ -70,7 +70,7 @@ function drawSnake(ctx, snake) {
     snake.forEach(part => drawSnakePart(ctx, part));
 }
 
-function advanceSnake(snake, state, food, score) {
+function advanceSnake(snake, state, food, score, eatSound) {
    /*
     @params:
       - snake: The array representing the snake's body
@@ -88,6 +88,8 @@ function advanceSnake(snake, state, food, score) {
     snake.unshift(head);
     if(head.x === food.x && head.y === food.y){
         food = createFood(snake);
+        eatSound.currentTime = 1.5;
+        eatSound.play();
         score.num += 10;
         document.getElementById("score").innerHTML = score.num;
     } else {
@@ -113,7 +115,7 @@ function clearCanvas(ctx) {
     ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 }
 
-function movement(ctx, snake, state, food, score, backgroundMusic) {
+function movement(ctx, snake, state, food, score, backgroundMusic, eatSound) {
     /*
     @params:
         - ctx: to draw the canvas
@@ -126,13 +128,13 @@ function movement(ctx, snake, state, food, score, backgroundMusic) {
     */
     clearCanvas(ctx);
     drawFood(ctx, food);
-    food = advanceSnake(snake, state, food, score);
+    food = advanceSnake(snake, state, food, score, eatSound);
     drawSnake(ctx, snake);
     if(didGameEnd(snake)) {
         backgroundMusic.pause();
         return;
     }
-    setTimeout(() => movement(ctx, snake, state, food, score, backgroundMusic), 100);
+    setTimeout(() => movement(ctx, snake, state, food, score, backgroundMusic, eatSound), 100);
 }
 
 function direction(event, state, backgroundMusic) {
