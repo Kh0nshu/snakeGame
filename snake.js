@@ -20,9 +20,9 @@ function gameLogic(){
 
     // Create snake as an array of coordinates
     let snake = [{x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150},  {x: 110, y: 150}];
-
-    setTimeout(() => movement(ctx, snake, 10, 0), 100);
-    drawSnake(ctx);
+    let state = {dx: 10, dy: 0};
+    setTimeout(() => movement(ctx, snake,  state), 100);
+    document.addEventListener("keydown", (event) => direction(event, state));
 }
 
 function drawSnakePart(ctx, snakePart) {
@@ -61,7 +61,7 @@ function drawSnake(ctx, snake) {
     snake.forEach(part => drawSnakePart(ctx, part));
 }
 
-function advanceSnake(snake, dx, dy) {
+function advanceSnake(snake, state) {
    /*
     @params:
       - snake: The array representing the snake's body
@@ -72,7 +72,7 @@ function advanceSnake(snake, dx, dy) {
     at a new position and removing the last part to 
     simulate forward movement.
     */
-    const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+    const head = {x: snake[0].x + state.dx, y: snake[0].y + state.dy};
     snake.unshift(head);
     snake.pop();
 }
@@ -92,7 +92,7 @@ function clearCanvas(ctx) {
     ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 }
 
-function movement(ctx, snake, dx, dy) {
+function movement(ctx, snake, state) {
     /*
     Description:
     This function clears the canvas, then
@@ -100,9 +100,38 @@ function movement(ctx, snake, dx, dy) {
     We will use this to simulate movment.
     */
     clearCanvas(ctx);
-    advanceSnake(snake, dx, dy);
+    advanceSnake(snake, state);
     drawSnake(ctx, snake);
-    setTimeout(() => movement(ctx, snake, dx, dy), 100);
+    setTimeout(() => movement(ctx, snake, state), 100);
+}
+
+function direction(event, state) {
+    const LEFT_KEY = 37;  
+    const RIGHT_KEY = 39;  
+    const UP_KEY = 38;  
+    const DOWN_KEY = 40;
+    const keyPressed = event.keyCode;  
+    const goingUp = state.dy === -10;  
+    const goingDown = state.dy === 10;  
+    const goingRight = state.dx === 10;  
+    const goingLeft = state.dx === -10;
+
+    if(keyPressed === LEFT_KEY && !goingRight) {
+        state.dx = -10;
+        state.dy = 0;
+    }
+    if (keyPressed === UP_KEY && !goingDown) {    
+        state.dx = 0;    
+        state.dy = -10;  
+    }
+    if (keyPressed === RIGHT_KEY && !goingLeft) {    
+       state.dx = 10;    
+        state.dy = 0;  
+    }
+      if (keyPressed === DOWN_KEY && !goingUp) {    
+        state.dx = 0;    
+        state.dy = 10;  
+      }
 }
 
 gameLogic();
